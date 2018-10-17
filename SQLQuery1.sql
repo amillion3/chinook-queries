@@ -78,6 +78,13 @@ from Employee
 -- #
 --  total_invoices_{year}.sql: How many Invoices were there in 2009 and 2011?
 
+select Count(*) InvoiceDate
+from Invoice
+where YEAR(InvoiceDate) = 2009 OR
+	YEAR(InvoiceDate) = 2011
+group by YEAR(InvoiceDate)
+
+
 /************************************************/
 -- #9
 -- total_sales_{year}.sql: What are the respective total sales for each of those years?
