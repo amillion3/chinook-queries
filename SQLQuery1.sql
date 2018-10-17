@@ -74,8 +74,8 @@ from Employee
 	join Customer on Employee.EmployeeId = Customer.CustomerId
 		join Invoice on Customer.CustomerId = Invoice.InvoiceId
 
-/****8********************************************/
--- #
+/*************************************************/
+-- #8
 --  total_invoices_{year}.sql: How many Invoices were there in 2009 and 2011?
 
 select Count(*) InvoiceDate
@@ -84,10 +84,15 @@ where YEAR(InvoiceDate) = 2009 OR
 	YEAR(InvoiceDate) = 2011
 group by YEAR(InvoiceDate)
 
-
 /************************************************/
 -- #9
 -- total_sales_{year}.sql: What are the respective total sales for each of those years?
+
+select count(*) InvoiceDate, SUM(Total)
+from Invoice
+where YEAR(InvoiceDate) = 2009 OR
+	YEAR(InvoiceDate) = 2011
+group by YEAR(InvoiceDate)
 
 /************************************************/
 -- #10
