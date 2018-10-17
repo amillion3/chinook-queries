@@ -65,6 +65,15 @@ from Employee
 -- #7
 -- invoice_totals.sql: Provide a query that shows the Invoice Total, Customer name, Country and Sale Agent name for all invoices and customers.
 
+select
+	InvoiceTotal = Invoice.Total,
+	CustomerFullName = Customer.FirstName + ' ' + Customer.LastName,
+	CustomerCountry = Customer.Country,
+	EmployeeFullName = Employee.FirstName + ' ' + Employee.LastName
+from Employee
+	join Customer on Employee.EmployeeId = Customer.CustomerId
+		join Invoice on Customer.CustomerId = Invoice.InvoiceId
+
 /****8********************************************/
 -- #
 --  total_invoices_{year}.sql: How many Invoices were there in 2009 and 2011?
