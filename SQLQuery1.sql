@@ -136,7 +136,12 @@ from InvoiceLine
 
 /************************************************/
 -- #14
--- country_invoices.sql: Provide a query that shows the # of invoices per country. HINT: GROUP BY
+-- country_invoices.sql: Provide a query that shows the # of invoices per country. 
+-- HINT: GROUP BY
+
+select BillingCountry, Count(BillingCountry) as InvoiceCount
+from Invoice
+group by BillingCountry
 
 /************************************************/
 -- #15
