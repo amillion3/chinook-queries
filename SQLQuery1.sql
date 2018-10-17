@@ -98,9 +98,18 @@ group by YEAR(InvoiceDate)
 -- #10
 -- invoice_37_line_item_count.sql: Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for Invoice ID 37.
 
+select count(*) 
+from InvoiceLine
+where InvoiceLineId = 37
+
 /************************************************/
 -- #11
--- line_items_per_invoice.sql: Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for each Invoice. HINT: GROUP BY
+-- line_items_per_invoice.sql: Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for each Invoice. 
+-- HINT: GROUP BY
+
+select count(*) InvoiceCount
+from InvoiceLine
+group by InvoiceId
 
 /************************************************/
 -- #12
