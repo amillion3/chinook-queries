@@ -37,6 +37,11 @@ where Country = 'Brazil'
 -- #4
 -- sales_agents.sql: Provide a query showing only the Employees who are Sales Agents.
 
+select *
+from Employee
+where title = 'Sales Support Agent'
+
+
 /************************************************/
 -- #5
 -- unique_invoice_countries.sql: Provide a query showing a unique/distinct list of billing countries from the Invoice table.
