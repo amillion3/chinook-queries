@@ -169,6 +169,10 @@ from Track
 -- #17
 -- invoices_line_item_count.sql: Provide a query that shows all Invoices but includes the # of invoice line items.
 
+select *
+from Invoice
+	join InvoiceLine on Invoice.InvoiceId = InvoiceLine.InvoiceId
+
 /************************************************/
 -- #18
 -- sales_agent_total_sales.sql: Provide a query that shows total sales made by each sales agent.
