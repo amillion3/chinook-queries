@@ -190,6 +190,15 @@ group by Employee.LastName
 -- top_2009_agent.sql: Which sales agent made the most in sales in 2009?
 -- Hint: Use the MAX function on a subquery.
 
+select top 1 MAX(Employee.LastName), SUM(Invoice.Total) as i
+from Employee
+	join Customer on Employee.EmployeeId = Customer.SupportRepId
+		join Invoice on Customer.CustomerId = Invoice.CustomerId
+where title = 'Sales Support Agent'
+group by Employee.LastName
+order by i desc
+
+
 /************************************************/
 -- #20
 -- top_agent.sql: Which sales agent made the most in sales over all?
