@@ -242,6 +242,12 @@ order by 'Total Spent' desc
 -- #24
 -- top_2013_track.sql: Provide a query that shows the most purchased track of 2013.
 
+select Track.Name
+from Track
+	join InvoiceLine on Track.TrackId = InvoiceLine.TrackId
+		join Invoice on InvoiceLine.InvoiceId = Invoice.InvoiceId
+where year(Invoice.InvoiceDate) = 2013
+
 /************************************************/
 -- #25
 -- top_5_tracks.sql: Provide a query that shows the top 5 most purchased songs.
