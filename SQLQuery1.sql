@@ -214,12 +214,11 @@ order by i desc
 -- #21
 -- sales_agent_customer_count.sql: Provide a query that shows the count of customers assigned to each sales agent.
 
--- why does this fail without max(...) ?
-select count(Customer.SupportRepId), max(Employee.LastName)
+select count(Customer.SupportRepId) as 'Count', Employee.LastName
 from Customer
 	join Employee on Customer.SupportRepId = Employee.EmployeeId
 where Title = 'Sales Support Agent'
-group by Employee.EmployeeId
+group by Employee.EmployeeId, Employee.LastName
 
 /************************************************/
 -- #22
@@ -232,6 +231,12 @@ group by BillingCountry
 /************************************************/
 -- #23
 -- top_country.sql: Which country's customers spent the most?
+-- total of each country, which country spent the most?
+
+select top 1 sum(Invoice.Total) as 'Total Spent', Invoice.BillingCountry
+from Invoice
+group by Invoice.BillingCountry
+order by 'Total Spent' desc
 
 /************************************************/
 -- #24
