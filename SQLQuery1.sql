@@ -194,14 +194,21 @@ select top 1 MAX(Employee.LastName), SUM(Invoice.Total) as i
 from Employee
 	join Customer on Employee.EmployeeId = Customer.SupportRepId
 		join Invoice on Customer.CustomerId = Invoice.CustomerId
-where title = 'Sales Support Agent'
+where title = 'Sales Support Agent' and YEAR(InvoiceDate) = 2009
 group by Employee.LastName
 order by i desc
-
 
 /************************************************/
 -- #20
 -- top_agent.sql: Which sales agent made the most in sales over all?
+
+select top 1 MAX(Employee.LastName), SUM(Invoice.Total) as i
+from Employee
+	join Customer on Employee.EmployeeId = Customer.SupportRepId
+		join Invoice on Customer.CustomerId = Invoice.CustomerId
+where title = 'Sales Support Agent'
+group by Employee.LastName
+order by i desc
 
 /************************************************/
 -- #21
