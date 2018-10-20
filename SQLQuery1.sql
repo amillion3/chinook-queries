@@ -214,6 +214,7 @@ order by i desc
 -- #21
 -- sales_agent_customer_count.sql: Provide a query that shows the count of customers assigned to each sales agent.
 
+-- why does this fail without max(...) ?
 select count(Customer.SupportRepId), max(Employee.LastName)
 from Customer
 	join Employee on Customer.SupportRepId = Employee.EmployeeId
@@ -223,6 +224,10 @@ group by Employee.EmployeeId
 /************************************************/
 -- #22
 -- sales_per_country.sql: Provide a query that shows the total sales per country.
+
+select sum(Total) as 'Total', BillingCountry
+from Invoice
+group by BillingCountry
 
 /************************************************/
 -- #23
