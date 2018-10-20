@@ -252,6 +252,11 @@ where year(Invoice.InvoiceDate) = 2013
 -- #25
 -- top_5_tracks.sql: Provide a query that shows the top 5 most purchased songs.
 
+select distinct InvoiceLine.TrackId, sum(InvoiceLine.Quantity) as 'Quantity'
+from InvoiceLine
+group by InvoiceLine.TrackId
+
+
 /************************************************/
 -- #26
 -- top_3_artists.sql: Provide a query that shows the top 3 best selling artists.
