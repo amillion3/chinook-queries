@@ -147,6 +147,7 @@ group by BillingCountry
 -- #15
 -- playlists_track_count.sql: Provide a query that shows the total number of tracks in each playlist. 
 --  The Playlist name should be include on the resulant table.
+
 select Count(Playlist.PlaylistId), Playlist.Name
 from Playlist
 	join PlaylistTrack on Playlist.PlaylistId = PlaylistTrack.PlaylistId
@@ -155,44 +156,106 @@ group by Playlist.PlaylistId, Playlist.Name
 
 /************************************************/
 -- #16
--- tracks_no_id.sql: Provide a query that shows all the Tracks, but displays no IDs. The result should include the Album name, Media type and Genre.
+-- tracks_no_id.sql: Provide a query that shows all the Tracks, but displays no IDs. 
+--  The result should include the Album name, Media type and Genre.
+
+select Track.Name, Album.Title, MediaType.Name, Genre.Name
+from Track
+	join Album on Track.AlbumId = Album.AlbumId
+	join MediaType on Track.MediaTypeId = MediaType.MediaTypeId
+	join Genre on Track.GenreId = Genre.GenreId
 
 /************************************************/
 -- #17
 -- invoices_line_item_count.sql: Provide a query that shows all Invoices but includes the # of invoice line items.
 
+select *
+from Invoice
+	join InvoiceLine on Invoice.InvoiceId = InvoiceLine.InvoiceId
+
 /************************************************/
 -- #18
 -- sales_agent_total_sales.sql: Provide a query that shows total sales made by each sales agent.
+
+select MAX(Employee.LastName), SUM(Invoice.Total)
+from Employee
+	join Customer on Employee.EmployeeId = Customer.SupportRepId
+		join Invoice on Customer.CustomerId = Invoice.CustomerId
+where title = 'Sales Support Agent'
+group by Employee.LastName
+
 
 /************************************************/
 -- #19
 -- top_2009_agent.sql: Which sales agent made the most in sales in 2009?
 -- Hint: Use the MAX function on a subquery.
 
+select top 1 MAX(Employee.LastName), SUM(Invoice.Total) as i
+from Employee
+	join Customer on Employee.EmployeeId = Customer.SupportRepId
+		join Invoice on Customer.CustomerId = Invoice.CustomerId
+where title = 'Sales Support Agent' and YEAR(InvoiceDate) = 2009
+group by Employee.LastName
+order by i desc
+
 /************************************************/
 -- #20
 -- top_agent.sql: Which sales agent made the most in sales over all?
+
+select top 1 MAX(Employee.LastName), SUM(Invoice.Total) as i
+from Employee
+	join Customer on Employee.EmployeeId = Customer.SupportRepId
+		join Invoice on Customer.CustomerId = Invoice.CustomerId
+where title = 'Sales Support Agent'
+group by Employee.LastName
+order by i desc
 
 /************************************************/
 -- #21
 -- sales_agent_customer_count.sql: Provide a query that shows the count of customers assigned to each sales agent.
 
+select count(Customer.SupportRepId) as 'Count', Employee.LastName
+from Customer
+	join Employee on Customer.SupportRepId = Employee.EmployeeId
+where Title = 'Sales Support Agent'
+group by Employee.EmployeeId, Employee.LastName
+
 /************************************************/
 -- #22
 -- sales_per_country.sql: Provide a query that shows the total sales per country.
 
+select sum(Total) as 'Total', BillingCountry
+from Invoice
+group by BillingCountry
+
 /************************************************/
 -- #23
 -- top_country.sql: Which country's customers spent the most?
+-- total of each country, which country spent the most?
+
+select top 1 sum(Invoice.Total) as 'Total Spent', Invoice.BillingCountry
+from Invoice
+group by Invoice.BillingCountry
+order by 'Total Spent' desc
 
 /************************************************/
 -- #24
 -- top_2013_track.sql: Provide a query that shows the most purchased track of 2013.
 
+select Track.Name
+from Track
+	join InvoiceLine on Track.TrackId = InvoiceLine.TrackId
+		join Invoice on InvoiceLine.InvoiceId = Invoice.InvoiceId
+where year(Invoice.InvoiceDate) = 2013
+
 /************************************************/
 -- #25
 -- top_5_tracks.sql: Provide a query that shows the top 5 most purchased songs.
+
+select distinct InvoiceLine.TrackId, sum(InvoiceLine.Quantity) as 'Quantity'
+from InvoiceLine
+group by InvoiceLine.TrackId
+
 
 /************************************************/
 -- #26
