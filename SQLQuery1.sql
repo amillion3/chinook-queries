@@ -177,6 +177,14 @@ from Invoice
 -- #18
 -- sales_agent_total_sales.sql: Provide a query that shows total sales made by each sales agent.
 
+select MAX(Employee.LastName), SUM(Invoice.Total)
+from Employee
+	join Customer on Employee.EmployeeId = Customer.SupportRepId
+		join Invoice on Customer.CustomerId = Invoice.CustomerId
+where title = 'Sales Support Agent'
+group by Employee.LastName
+
+
 /************************************************/
 -- #19
 -- top_2009_agent.sql: Which sales agent made the most in sales in 2009?
