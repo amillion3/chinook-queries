@@ -1,4 +1,4 @@
--- #1
+--#1
 --  non_usa_customers.sql: Provide a query showing 
 --  Customers (just their full names, customer ID and country) 
 --  who are not in the US.
@@ -145,7 +145,13 @@ group by BillingCountry
 
 /************************************************/
 -- #15
--- playlists_track_count.sql: Provide a query that shows the total number of tracks in each playlist. The Playlist name should be include on the resulant table.
+-- playlists_track_count.sql: Provide a query that shows the total number of tracks in each playlist. 
+--  The Playlist name should be include on the resulant table.
+select Count(Playlist.PlaylistId), Playlist.Name
+from Playlist
+	join PlaylistTrack on Playlist.PlaylistId = PlaylistTrack.PlaylistId
+group by Playlist.PlaylistId, Playlist.Name
+
 
 /************************************************/
 -- #16
