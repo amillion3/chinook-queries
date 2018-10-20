@@ -214,6 +214,12 @@ order by i desc
 -- #21
 -- sales_agent_customer_count.sql: Provide a query that shows the count of customers assigned to each sales agent.
 
+select count(Customer.SupportRepId), max(Employee.LastName)
+from Customer
+	join Employee on Customer.SupportRepId = Employee.EmployeeId
+where Title = 'Sales Support Agent'
+group by Employee.EmployeeId
+
 /************************************************/
 -- #22
 -- sales_per_country.sql: Provide a query that shows the total sales per country.
